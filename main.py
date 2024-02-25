@@ -1,7 +1,7 @@
 import logging
 import logging.handlers
 import os
-import datetime
+from datetime import datetime
 
 import requests
 
@@ -30,8 +30,6 @@ if __name__ == "__main__":
 
     r = requests.get('https://weather.talkpython.fm/api/weather/?city=Berlin&country=DE')
     webhook_url = 'https://hooks.zapier.com/hooks/catch/6996241/3ej8cwi/'
-    r = requests.post(webhook_url, json={'time': datetime.now()})
+    r = requests.post(webhook_url, json={'time': str(datetime.now())})
     if r.status_code == 200:
-        data = r.json()
-        temperature = data["forecast"]["temp"]
-        logger.info(f'Weather in Berlin: {temperature}')
+        logger.info(f'Sucess: YES')
