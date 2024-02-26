@@ -17,24 +17,17 @@ def ingest_arxiv_papers():
     db = client.arxiv
     collection = db['test_papers']
     records = papers_df.to_dict(orient='records')
+    count = 0
     for i,record in enumerate(records):
         try:
             print(record['doi'])
             collection.insert_one(record)
+            count +=1
         except:
             print("duplicate found", record['doi'])
-    return papers_df 
-
-
-try:
-    SOME_SECRET = os.environ["SOME_SECRET"]
-except KeyError:
-    SOME_SECRET = "Token not available!"
-    #logger.info("Token not available!")
-    #raise
-
+    return count
 
 if __name__ == "__main__":
-    papers = ingest_arxiv_papers()
+    succesful_injection_count = ingest_arxiv_papers()
     webhook_url = os.environ["ZAPIER_WEBHOOK"]
-    r = requests.post(webhook_url, json={'time': str(datetime.now()), 'num_papers': len(papers)})
+    r = requests.post(webhook_url, json={'time': str(datetime.now()), 'succesful_count': succesful_injection_count})
