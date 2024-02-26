@@ -1,4 +1,4 @@
-import os
+import os, sys, traceback
 from datetime import datetime
 import pymongo
 import requests
@@ -17,7 +17,12 @@ def ingest_arxiv_papers():
     db = client.arxiv
     collection = db['test_papers']
     records = papers_df.to_dict(orient='records')
-    collection.insert_many(records)
+    for i,record in enumerate(records):
+        try:
+            print(record['doi'])
+            collection.insert_one(record)
+        except:
+            print("duplicate found", record['doi'])
     return papers_df 
 
 
