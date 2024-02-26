@@ -31,5 +31,5 @@ except KeyError:
 
 if __name__ == "__main__":
     papers = ingest_arxiv_papers()
-    webhook_url = 'https://hooks.zapier.com/hooks/catch/6996241/3ej8cwi/'
+    webhook_url = os.environ["ZAPIER_WEBHOOK"]
     r = requests.post(webhook_url, json={'time': str(datetime.now()), 'num_papers': len(papers)})
