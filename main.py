@@ -29,7 +29,6 @@ def ingest_arxiv_papers():
 
 if __name__ == "__main__":
     print(f"test_secret: {os.environ['TEST_SECRET']}")
-   print(f"test_env_variable: {os.environ['TEST_ENV_VARIABLE']}") 
     succesful_injection_count = ingest_arxiv_papers()
     webhook_url = os.environ["ZAPIER_WEBHOOK"]
     r = requests.post(webhook_url, json={'time': str(datetime.now()), 'succesful_count': succesful_injection_count})
