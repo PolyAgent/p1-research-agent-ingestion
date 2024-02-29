@@ -33,6 +33,6 @@ jobs:
       env: # Or as an environment variable
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
         ZAPIER_WEBHOOK: ${{ secrets.ZAPIER_WEBHOOK }}
-      with:
         TEST_SECRET: ${{ secrets.TEST_SECRET }}
+        TEST_ENV_VARIABLE: ${{ secrets.sTEST_ENV_VARIABLE }}
       run: python main.py
