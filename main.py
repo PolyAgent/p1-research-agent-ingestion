@@ -13,8 +13,9 @@ MAX_NUMBER_PAPERS = 200 #number of papers to pull
 def ingest_arxiv_papers():
     import paperscraper
     papers_df = paperscraper.arxiv.get_arxiv_papers("cat:cs.AI OR cat:cs.LG OR cat:cs.CL", max_results=MAX_NUMBER_PAPERS, search_options={'sort_by': paperscraper.arxiv.arxiv.SortCriterion.SubmittedDate})    
-    # add pdf url
-    papers_df['pdf_url'] = papers_df["doi"].apply(lambda row: "https://arxiv.org/abs/"+row.split("/arXiv.")[1])
+    # add url
+    papers_df['url'] = papers_df["doi"].apply(lambda row: "https://arxiv.org/abs/"+row.split("/arXiv.")[1])
+    papers_df['pdf_url'] = papers_df["doi"].apply(lambda row: "https://arxiv.org/pdf/"+row.split("/arXiv.")[1]+".pdf") 
     
     db = client.arxiv
     collection = db['papers_for_review']
