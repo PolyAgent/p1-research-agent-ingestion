@@ -72,3 +72,4 @@ urllib3==2.2.1
 wcwidth==0.2.13
 webrequests==1.0.8
 wsproto==1.2.0
+fireworks-ai

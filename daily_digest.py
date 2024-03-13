@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import os
 import pandas as pd
 import fireworks.client
+import requests
 
 client = pymongo.MongoClient(os.environ['MONGODB_URI'])
 fireworks.client.api_key = os.environ['API_KEY']
@@ -98,4 +99,5 @@ if __name__ == "__main__":
         list_summaries.append(summary)
     
     digest = generate_daily_digest(list_summaries)
-    print(digest)
+    webhook_url = os.environ["ZAPIER_DIGEST_WEBHOOK"]
+    r = requests.post(webhook_url, json={'time': str(datetime.now()), 'digest': digest})
